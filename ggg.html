@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travis Scott Utopia</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'News Gothic Condensed', Courier, Courier New, Lucida Sans Typewriter, Lucida Typewriter, monospace;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            padding-top: 150vh; /* Ensure enough space for scrolling */
+            padding-bottom: 50px;
+        }
+
+        .product-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .product-image img {
+            max-width: 100%; /* Ensure images are responsive */
+            height: auto;
+        }
+
+        .product-details {
+            text-align: center;
+            font-size: 14px; /* Adjust font size of product details */
+        }
+
+        .product-details h3 {
+            margin-bottom: 5px; /* Reduce margin bottom for h3 */
+            font-size: 14px; /* Adjust font size of h3 */
+        }
+
+        .product-details p {
+            margin-bottom: 10px; /* Reduce margin bottom for p */
+            font-size: 14px; /* Adjust font size of p */
+        }
+
+        .product-price {
+            font-size: 10px; /* Adjust font size of product price */
+            font-weight: bold;
+        }
+
+        .logo-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(1); /* Start at original size */
+            z-index: 1000;
+            cursor: pointer;
+            transition: transform 0.3s ease, top 0.3s ease;
+        }
+
+        .logo-container img {
+            max-width: 100%; /* Set max width to 100% */
+            width: 500px; /* Initial width */
+            height: auto;
+        }
+
+        /* Cart link styles */
+        .cart-link {
+            --color-bg: #000000;
+            --color-primary: #ffffff;
+            --color-light: hsl(from var(--color-primary) h s calc(l + 5%));
+            --color-lighter: hsl(from var(--color-primary) h s calc(l + 10%));
+            --color-lighter-20: hsl(from var(--color-primary) h s calc(l + 20%));
+            --color-lighter-30: hsl(from var(--color-primary) h s calc(l + 30%));
+            --color-hover: hsl(from var(--color-primary) h s calc(l + 6%));
+            --color-active: hsl(from var(--color-primary) h s calc(l + 8%));
+            font-family: 'News Gothic Condensed', Courier, Courier New, Lucida Sans Typewriter, Lucida Typewriter, monospace;
+            font-size: 15px;
+            box-sizing: border-box;
+            font-weight: 400;
+            text-decoration: none;
+            color: currentColor;
+            position: fixed;
+            right: 0;
+            top: 10px;
+            z-index: 100;
+            padding: 21px 22px;
+            letter-spacing: .17em;
+            text-transform: uppercase;
+            transition: all .8s ease;
+            transform: translate(0) translateY(0);
+            visibility: visible;
+        }
+
+        .cart-link:hover {
+            color: var(--color-hover); /* Change color on hover */
+        }
+
+        .cart-link::after {
+            content: "";
+            display: block;
+            width: 100%;
+            height: 1px;
+            background-color: var(--color-primary);
+            margin-top: 2px; /* Adjust spacing from text */
+        }
+.product-image {
+    position: relative;
+}
+
+.product-image img {
+    width: 100%;
+    height: auto;
+    transition: opacity 0s ease;
+}
+
+.product-image .back-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+}
+
+.product-image:hover .front-image {
+    opacity: 0;
+}
+
+.product-image:hover .back-image {
+    opacity: 1;
+}
+
+.product-details {
+    text-align: center; /* Center the text, optional */
+    padding-top: 10px;
+}
+
+    </style>
+</head>
+<body>
+
+<div class="logo-container">
+    <img src="https://shop.travisscott.com/cdn/shop/files/utopia.png?v=1688787549" alt="CACTUS JACK">
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="product-image">
+		<a href="vinyl1.html">
+                <img src="https://shop.travisscott.com/cdn/shop/files/HERO_VINYL_01_UPDATE-_1_1500x.png?v=1690507172">
+		</a>
+            </div>
+            <div class="product-details">
+                <h3>UTOPIA 2 DISK VINYL LP COVER 1</h3>
+                <p class="product-price">$50</p>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="product-image">
+		<a href="vinyl2.html">
+                <img src="https://shop.travisscott.com/cdn/shop/files/A_PACKcd-3_9d5d9222-42e2-4896-a41d-827219d8fe29_1500x.png?v=1690507453">
+		</a>
+            </div>
+            <div class="product-details">
+                <h3>UTOPIA CD COVER 1</h3>
+                <p class="product-price">$12</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2nd row -->
+    <div class="row">
+        <div class="col-md-6">
+            <div class="product-image">
+		<a href="vinyl3.html">
+                <img src="https://shop.travisscott.com/cdn/shop/files/COLLAGE-VINYL_1500x.jpg?v=1690388210">
+		</a>
+            </div>
+            <div class="product-details">
+                <h3>UTOPIA 2 DISK VINYL LP COVER 2</h3>
+                <p class="product-price">$50</p>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="product-image">
+		 <a href="vinyl4.html">
+                <img src="https://shop.travisscott.com/cdn/shop/files/2c_PACKcd_1500x_d2cccb5a-3a8e-4145-a621-cdf54a83314f_1500x.jpg?v=1690398310">
+		</a>
+            </div>
+            <div class="product-details">
+                <h3>UTOPIA CD COVER 2</h3>
+                <p class="product-price">$12</p>
+            </div>
+        </div>
+
+    </div>
+    <!-- 3nd row -->
+    <div class="row">
+        <div class="col-md-6">
+            <div class="product-image">
+		<a href="vinyl5.html">
+                <img src="https://shop.travisscott.com/cdn/shop/files/3A_PACK_1500x.jpg?v=1690301497">
+		</a>
+            </div>
+            <div class="product-details">
+                <h3>UTOPIA 2 DISK VINYL LP COVER 3</h3>
+                <p class="product-price">$50</p>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="product-image">
+		<a href="vinyl6.html">
+                <img src="https://shop.travisscott.com/cdn/shop/files/A_PACKcd_1500x.jpg?v=1690303171">
+		</a>
+            </div>
+            <div class="product-details">
+                <h3>UTOPIA CD COVER 3</h3>
+                <p class="product-price">$12</p>
+            </div>
+        </div>
+    </div>
+
+<!-- 4th row -->
+    <div class="row">
+        <div class="col-md-6">
+            <div class="product-image">
+		<a href="vinyl7.html">
+                <img src="https://shop.travisscott.com/cdn/shop/files/BALLOON_VINYL_01_1500x.png?v=1690517954">
+		</a>
+            </div>
+            <div class="product-details">
+                <h3>UTOPIA 2 DISK VINYL LP COVER 4</h3>
+                <p class="product-price">$50</p>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="product-image">
+		<a href="vinyl8.html">
+                <img src="https://shop.travisscott.com/cdn/shop/files/A_PACKcd-_3_1500x.png?v=1690517876">	
+		</a>
+            </div>
+            <div class="product-details">
+                <h3>UTOPIA CD COVER 4</h3>
+                <p class="product-price">$12</p>
+            </div>
+        </div>
+    </div>
+
+<!-- 5th row -->
+<div class="row" style="margin-bottom: 190px;">
+    <div class="col-md-6">
+        <div class="product-image">
+	    <a href="vinyl9.html">
+            <img src="https://shop.travisscott.com/cdn/shop/files/MOUTH-VINYL_1500x.jpg?v=1690388193">
+         	</a>
+        </div>
+        <div class="product-details">
+            <h3>UTOPIA 2 DISK VINYL LP COVER 5</h3>
+            <p class="product-price">$50</p>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="product-image">
+	    <a href="vinyl10.html">
+            <img src="https://shop.travisscott.com/cdn/shop/files/1c_PACKcd_1500x_44845fa5-ffb6-4eb1-a479-65a967602477_1500x.jpg?v=1690398298">	
+						    </a>
+        </div>
+        <div class="product-details">
+            <h3>UTOPIA CD COVER 5</h3>
+            <p class="product-price">$12</p>
+        </div>
+    </div>
+</div>
+<!-- 6th row -->
+<div class="row" style="margin-bottom: 30px;">
+    <div class="col-md-4">
+        <div class="product-image" style="width: 70%; margin: 0 auto;">
+            <img src="https://shop.travisscott.com/cdn/shop/products/ZINE_01_1500x.png?v=1690517468" class="front-image" style="width: 100%; height: auto;">
+            <img src="https://shop.travisscott.com/cdn/shop/files/zine-spine_20b0536f-996b-4e8c-ba93-8343f0ef9ffb_1000x.jpg?v=1690559792" class="back-image" style="width: 100%; height: auto;">
+        </div>
+        <div class="product-details" style="padding: 20px 10px; margin-top: 10px;">
+            <h3 style="margin: 10px 0;">UTOPIA ZINE COVER #1</h3>
+            <p class="product-price" style="margin: 10px 0;">$25</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="product-image" style="width: 70%; margin: 0 auto;">
+            <img src="https://shop.travisscott.com/cdn/shop/products/ZINE_02_1500x.png?v=1690517466" class="front-image" style="width: 100%; height: auto;">
+	    <img src="https://shop.travisscott.com/cdn/shop/files/zine-spine_20b0536f-996b-4e8c-ba93-8343f0ef9ffb_1000x.jpg?v=1690559792" class="back-image" style="width: 100%; height: auto;">
+        </div>
+        <div class="product-details" style="padding: 20px 10px; margin-top: 10px;">
+            <h3 style="margin: 10px 0;">UTOPIA ZINE COVER #2</h3>
+            <p class="product-price" style="margin: 5px 0;">$25</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="product-image" style="width: 70%; margin: 0 auto;">
+            <img src="https://shop.travisscott.com/cdn/shop/products/ZINE_03_1500x.png?v=1690517468" class="front-image" style="width: 100%; height: auto;">
+	    <img src="https://shop.travisscott.com/cdn/shop/files/zine-spine_20b0536f-996b-4e8c-ba93-8343f0ef9ffb_1000x.jpg?v=1690559792" class="back-image" style="width: 100%; height: auto;">
+        </div>
+        <div class="product-details" style="padding: 20px 10px; margin-top: 10px;">
+            <h3 style="margin: 10px 0;">UTOPIA ZINE COVER #3</h3>
+            <p class="product-price" style="margin: 5px 0;">$25</p>
+        </div>
+    </div>
+</div>
+
+<!-- 7th row -->
+<div class="row" style="margin-bottom: 30px;">
+    <div class="col-md-4">
+        <div class="product-image" style="width: 70%; margin: 0 auto;">
+            <img src="https://shop.travisscott.com/cdn/shop/products/ZINE_04_1500x.png?v=1690517468" class="front-image" style="width: 100%; height: auto;">
+	   <img src="https://shop.travisscott.com/cdn/shop/files/zine-spine_20b0536f-996b-4e8c-ba93-8343f0ef9ffb_1000x.jpg?v=1690559792" class="back-image" style="width: 100%; height: auto;">
+        </div>
+        <div class="product-details" style="padding: 20px 10px; margin-top: 10px;">
+            <h3 style="margin: 10px 0;">UTOPIA ZINE COVER #4</h3>
+            <p class="product-price" style="margin: 5px 0;">$25</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="product-image" style="width: 70%; margin: 0 auto;">
+            <img src="https://shop.travisscott.com/cdn/shop/products/ZINE_05_1500x.png?v=1690517466" class="front-image" style="width: 100%; height: auto;">
+            <img src="https://shop.travisscott.com/cdn/shop/files/zine-spine_20b0536f-996b-4e8c-ba93-8343f0ef9ffb_1000x.jpg?v=1690559792" class="back-image" style="width: 100%; height: auto;">
+        </div>
+        <div class="product-details" style="padding: 20px 10px; margin-top: 10px;">
+            <h3 style="margin: 10px 0;">UTOPIA ZINE COVER #5</h3>
+            <p class="product-price" style="margin: 5px 0;">$25</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="product-image" style="width: 70%; margin: 0 auto;">
+            <img src="https://shop.travisscott.com/cdn/shop/products/ZINE_06_1500x.png?v=1690517468"class="front-image" style="width: 100%; height: auto;">
+	   <img src="https://shop.travisscott.com/cdn/shop/files/zine-spine_20b0536f-996b-4e8c-ba93-8343f0ef9ffb_1000x.jpg?v=1690559792" class="back-image" style="width: 100%; height: auto;">
+        </div>
+        <div class="product-details" style="padding: 20px 10px; margin-top: 10px;">
+            <h3 style="margin: 10px 0;">UTOPIA ZINE COVER #6</h3>
+            <p class="product-price" style="margin: 5px 0;">$25</p>
+        </div>
+    </div>
+</div>
+
+<!-- 8th row -->
+<div class="row" style="margin-bottom: 70px;">
+    <div class="col-md-6">
+        <div class="product-image">
+            <img src="https://shop.travisscott.com/cdn/shop/products/FINAL_01_1500x.png?v=1689805843" class="front-image" style="width: 100%; height: auto;">
+            <img src="https://shop.travisscott.com/cdn/shop/products/web-cover-v_60d61307-06c6-492f-aeb3-1f92803cc575_1500x.jpg?v=1689805843" class="back-image" style="width: 100%; height: auto;">
+        </div>
+        <div class="product-details">
+            <h3>KPOP VINYL</h3>
+            <p class="product-price">$10</p>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="product-image">
+            <img src="https://shop.travisscott.com/cdn/shop/files/s1-d_1500x.png?v=1689809404" class="front-image" style="width: 100%; height: auto;">
+            <img src="https://shop.travisscott.com/cdn/shop/files/s1-e_1500x.png?v=1689809466" class="back-image" style="width: 100%; height: auto;">
+        </div>
+        <div class="product-details">
+            <h3>KPOP CD</h3>
+            <p class="product-price">$3.50</p>
+        </div>
+    </div>
+</div>
+
+</div>    <!-- Additional space below the products -->
+    <div class="extra-space"></div>
+</div>
+
+<!-- Cart link -->
+<a class="cart-link" href="checkout.html">
+    Cart
+    <span class="sr-only">:</span>
+    <span class="cart-count" aria-hidden="true">
+        <span data-js-cart-count-number="" data-count="0">0</span>
+        <span class="sr-only" data-js-cart-count-label="">Items</span>
+    </span>
+</a>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script>
+    $(document).ready(function() {
+        var $logoContainer = $('.logo-container');
+        var initialLogoSize = 1.5; // Initial size (scale)
+        var finalLogoSize = 0.3; // Final size (scale)
+        var finalLogoTop = 10; // Final top position (in percentage of viewport height)
+        var productsOffset = $('.container').offset().top; // Offset of the products container
+        var windowHeight = $(window).height();
+
+        $(window).scroll(function() {
+            var scrollTop = $(this).scrollTop();
+            var scaleValue = initialLogoSize - (scrollTop / windowHeight) * (initialLogoSize - finalLogoSize);
+            var topValue = 50 - (scrollTop / windowHeight) * (50 - finalLogoTop);
+
+            // Ensure the scale value is within the range of initialLogoSize to finalLogoSize
+            scaleValue = Math.max(finalLogoSize, Math.min(initialLogoSize, scaleValue));
+            // Ensure the top value is within the range of 50% to finalLogoTop%
+            topValue = Math.max(finalLogoTop, Math.min(50, topValue));
+
+            $logoContainer.css({
+                'transform': 'translate(-50%, -50%) scale(' + scaleValue + ')',
+                'top': topValue + '%'
+            });
+        });
+
+        $(window).trigger('scroll'); // Ensure the initial state is correct
+    });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
+
+</body>
+</html>

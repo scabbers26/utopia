@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Page</title>
+   <style>
+        :root {
+            --color-bg: #000000;
+            --color-primary: #ffffff;
+            --color-hover: hsl(0, 0%, calc(100% + 6%));
+        }
+
+        body {
+            background-color: var(--color-bg);
+            color: var(--color-primary);
+            font-family: 'News Gothic Condensed', Courier, 'Courier New', 'Lucida Sans Typewriter', 'Lucida Typewriter', monospace;
+            font-size: 15px;
+            text-transform: uppercase;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        * {
+            box-sizing: border-box;
+            font-weight: 400;
+            letter-spacing: .08px;
+        }
+
+        .logo-container {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .logo {
+            width: 150px; /* Adjust the size as needed */
+            height: auto;
+        }
+
+        .cart-container {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .cart-link {
+            color: var(--color-primary);
+            text-decoration: none;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        .product-container {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .product-navigation {
+            display: flex;
+            align-items: center;
+        }
+
+        .product-navigation .prev,
+        .product-navigation .next {
+            cursor: pointer;
+            font-size: 2em;
+            padding: 0 10px;
+            user-select: none;
+        }
+
+        .product-image {
+            position: relative;
+            width: 300px;
+            height: 300px;
+        }
+
+        .product-image img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: auto;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .product-image img.active {
+            opacity: 1;
+        }
+
+        .product-details {
+            margin-top: 20px;
+        }
+
+        .product-title {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .product-description {
+            margin-bottom: 20px;
+        }
+
+        .product-price {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+
+        button[type="submit"], .K__button {
+            color: currentColor;
+            transition: all .3s cubic-bezier(0, 1.115, .415, .975);
+            background: transparent;
+            border-radius: 33px;
+            max-width: 100%;
+            font: inherit;
+            line-height: normal;
+            overflow: visible;
+            min-width: 150px;
+            display: block;
+            margin: 0 auto;
+            height: 39px;
+            line-height: 38px;
+            padding: 0;
+            -moz-appearance: none;
+            appearance: none;
+            -webkit-appearance: none;
+            box-shadow: 0;
+            cursor: pointer;
+            outline: 0;
+            text-transform: uppercase;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+            tap-highlight-color: transparent;
+            -webkit-tap-highlight-color: transparent;
+            border: 1px solid;
+        }
+
+        button[type="submit"]:hover, .K__button:hover {
+            background-color: var(--color-hover);
+        }
+
+        /* Cart Sidebar */
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 400px;
+            height: 100%;
+            background-color: var(--color-bg);
+            color: var(--color-primary);
+            box-shadow: -2px 0 5px rgba(0,0,0,0.5);
+            transition: right 0.3s ease;
+            z-index: 1000;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .cart-sidebar.active {
+            right: 0;
+        }
+
+        .cart-sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .cart-sidebar-close {
+            cursor: pointer;
+            font-size: 1.5em;
+            text-align: right;
+        }
+
+        .cart-sidebar-content {
+            flex-grow: 1;
+            overflow-y: auto;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .cart-item img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            margin-right: 10px;
+        }
+
+        .cart-item-details {
+            flex-grow: 1;
+        }
+
+        .cart-item-price {
+            margin-left: 10px;
+        }
+
+        .checkout-button-container {
+            text-align: center;
+            padding: 10px 0;
+            margin-top: 20px; /* Added margin to separate from subtotal */
+        }
+
+        .checkout-button {
+    background-color: var(--color-primary);
+    color: var(--color-bg);
+    border: none;
+    padding: 20px 40px; /* Increase padding for a wider button */
+    text-align: center;
+    cursor: pointer;
+    border-radius: 40px; /* Increase border-radius for a more rounded shape */
+    font-size: 1.3em; /* Increase font size for better visibility */
+    font-weight: bold; /* Make the font bold */
+    width: auto; /* Adjust width as needed */
+    display: inline-block; /* Ensures it respects its content width */
+    text-decoration: none; /* Remove underline */
+}
+
+.checkout-button:hover {
+    background-color: var(--color-hover);
+}
+
+
+        .empty-cart-message {
+            text-align: center;
+            margin-top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .subtotal-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px; /* Adjusted margin */
+            font-weight: bold;
+        }
+
+        .subtotal-text {
+            text-align: right;
+            margin-right: 10px;
+        }
+
+        .subtotal-amount {
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <div class="logo-container">
+        <img src="https://shop.travisscott.com/cdn/shop/files/utopia.png?v=1688787549" alt="Logo" class="logo">
+    </div>
+   <div class="cart-container">
+        <span class="cart-link">CART (0 ITEMS)</span>
+    </div>
+    <div class="product-container">
+        <div class="product-navigation">
+            <span class="prev">&lt;</span>
+            <div class="product-image">
+                <img src="https://shop.travisscott.com/cdn/shop/products/FINAL_01_1500x.png?v=1689805843" alt="UTOPIA 2 DISK VINYL LP COVER 5" class="active">
+                <img src="https://shop.travisscott.com/cdn/shop/products/web-cover-v_60d61307-06c6-492f-aeb3-1f92803cc575_1500x.jpg?v=1689805843" alt="UTOPIA 2 DISK VINYL LP COVER 6">
+                <img src="https://shop.travisscott.com/cdn/shop/products/web-KPOP_HIRES-01_30551799-d37d-4031-8aeb-f25df2d8519a_1500x.jpg?v=1689805843" alt="UTOPIA 2 DISK VINYL LP COVER 7">
+            </div>
+            <span class="next">&gt;</span>
+        </div>
+        <div class="product-details">
+            <h2 class="product-title">KPOP VINYL</h2>
+            <p class="product-description">TRAVIS SCOTT, BAD BUNNY & THE WEEKND • SHIPS IN 1 WEEK • LIMIT 4 PER CUSTOMER</p>
+            <p class="product-price">$100</p>
+            <form action="#" method="post" class="add-to-cart-form">
+                <input type="hidden" name="product-title" value="KPOP VINYL">
+                <input type="hidden" name="product-price" value="100">
+                <input type="hidden" name="product-image" value="https://shop.travisscott.com/cdn/shop/products/FINAL_01_1500x.png?v=1689805843">
+                <button type="submit" name="add" class="K__button" aria-label="Buy: KPOP VINYL">
+                    BUY
+                </button>
+            </form>
+        </div>
+    </div>
+<!-- Cart Sidebar -->
+    <div id="cartSidebar" class="cart-sidebar">
+        <div class="cart-sidebar-header">
+            <h2>Cart</h2>
+            <span id="cartSidebarClose" class="cart-sidebar-close">&times;</span>
+        </div>
+        <div class="cart-sidebar-content" id="cartItemsContainer"></div>
+        <div class="subtotal-container">
+            <span class="subtotal-text">Subtotal:</span>
+            <span class="subtotal-amount">$0.00</span>
+        </div>
+        <div class="checkout-button-container">
+    <a href="checkout.html" class="checkout-button">CHECKOUT</a>
+</div>
+
+        <div class="empty-cart-message">Your cart is empty</div>
+    </div>
+
+   <script>
+     document.addEventListener('DOMContentLoaded', function() {
+    const images = document.querySelectorAll('.product-image img');
+    const prevButton = document.querySelector('.prev');
+    const nextButton = document.querySelector('.next');
+    let currentImageIndex = 0;
+
+    function showImage(index) {
+        images.forEach((img, i) => {
+            img.classList.toggle('active', i === index);
+        });
+    }
+
+    prevButton.addEventListener('click', function() {
+        currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+        showImage(currentImageIndex);
+    });
+
+    nextButton.addEventListener('click', function() {
+        currentImageIndex = (currentImageIndex + 1) % images.length;
+        showImage(currentImageIndex);
+    });
+
+    showImage(currentImageIndex); // Show the first image initially
+
+    // Cart Sidebar functionality
+    const cartLink = document.querySelector('.cart-link');
+    const cartSidebar = document.getElementById('cartSidebar');
+    const cartSidebarClose = document.getElementById('cartSidebarClose');
+    const cartItemsContainer = document.getElementById('cartItemsContainer');
+    const emptyCartMessage = document.querySelector('.empty-cart-message');
+    const checkoutButton = document.querySelector('.checkout-button');
+    const subtotalAmount = document.querySelector('.subtotal-amount');
+    let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+    let itemCount = cartItems.reduce((total, item) => total + item.quantity, 0); // Calculate total items in cart
+
+    function updateCartSidebar() {
+        cartItemsContainer.innerHTML = '';
+        if (cartItems.length === 0) {
+            cartItemsContainer.appendChild(emptyCartMessage);
+            emptyCartMessage.style.display = 'block'; // Show empty cart message
+            subtotalAmount.textContent = '$0.00'; // Reset subtotal to zero when cart is empty
+        } else {
+            emptyCartMessage.style.display = 'none'; // Hide empty cart message
+            let subtotal = 0;
+            cartItems.forEach((item, index) => {
+                const cartItem = document.createElement('div');
+                cartItem.classList.add('cart-item');
+                cartItem.innerHTML = `
+                    <img src="${item.image}" alt="${item.title}">
+                    <div class="cart-item-details">
+                        <span>${item.title}</span>
+                        <span class="cart-item-quantity">Quantity: ${item.quantity}</span>
+                        <span class="cart-item-price">$${(item.price * item.quantity).toFixed(2)}</span>
+                    </div>
+                    <span class="remove-cart-item" data-index="${index}">✕</span>
+                `;
+                cartItemsContainer.appendChild(cartItem);
+
+                subtotal += item.price * item.quantity; // Calculate subtotal
+            });
+
+            subtotalAmount.textContent = `$${subtotal.toFixed(2)}`;
+        }
+
+        updateCartLink(); // Update cart link display in sidebar
+    }
+
+    function updateCartLink() {
+        itemCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+        cartLink.textContent = `CART (${itemCount} ITEM${itemCount !== 1 ? 'S' : ''})`; // Corrected pluralization
+    }
+
+    function addItemToCart(item) {
+        const existingItem = cartItems.find(cartItem => cartItem.title === item.title);
+        if (existingItem) {
+            existingItem.quantity++;
+        } else {
+            item.quantity = 1;
+            cartItems.push(item);
+        }
+        localStorage.setItem('cartItems', JSON.stringify(cartItems));
+        updateCartSidebar();
+        updateCartLink();
+    }
+
+    function removeItemFromCart(index) {
+        cartItems.splice(index, 1);
+        localStorage.setItem('cartItems', JSON.stringify(cartItems));
+        updateCartSidebar();
+        updateCartLink();
+    }
+
+    cartLink.addEventListener('click', function() {
+        cartSidebar.classList.add('active');
+        updateCartSidebar(); // Update sidebar when opened
+    });
+
+    cartSidebarClose.addEventListener('click', function() {
+        cartSidebar.classList.remove('active');
+    });
+
+    cartItemsContainer.addEventListener('click', function(e) {
+        if (e.target.classList.contains('remove-cart-item')) {
+            const index = parseInt(e.target.getAttribute('data-index'));
+            removeItemFromCart(index);
+        }
+    });
+
+    document.querySelectorAll('.add-to-cart-form').forEach(form => {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(form);
+            const item = {
+                title: formData.get('product-title'),
+                price: parseFloat(formData.get('product-price')), // Ensure price is parsed as float
+                image: formData.get('product-image')
+            };
+            addItemToCart(item);
+        });
+    });
+
+    updateCartLink(); // Initial link update
+});
+
+    </script>
+</body>
+</html>

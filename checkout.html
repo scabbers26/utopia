@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UTOPIA — Checkout</title>
+    <link rel="stylesheet" href="cart.css">
+</head>
+<body>
+    <div class="logo-container">
+        <img src="https://shop.travisscott.com/cdn/shop/files/utopia.png?v=1688787549" alt="Logo" class="logo">
+    </div>
+    <main class="checkout-container">
+        <div class="checkout-heading">
+            <p class="eyebrow">UTOPIA STORE</p>
+            <h1>Checkout</h1>
+            <a class="back-link" href="index.html">← Continue shopping</a>
+        </div>
+
+        <div id="emptyCheckout" class="empty-checkout" hidden>
+            <p>Your cart is empty.</p>
+            <a class="continue-button" href="index.html">Browse the collection</a>
+        </div>
+
+        <form id="checkoutForm" class="checkout-grid" novalidate>
+            <section class="checkout-card checkout-details">
+                <div class="section-heading"><span>01</span><h2>Contact &amp; delivery</h2></div>
+                <div class="form-grid">
+                    <label class="full-width" for="email">Email address<input type="email" id="email" name="email" autocomplete="email" required></label>
+                    <label for="name">Full name<input type="text" id="name" name="name" autocomplete="name" required></label>
+                    <label for="country">Country<input type="text" id="country" name="country" autocomplete="country-name" required></label>
+                    <label class="full-width" for="address">Shipping address<input type="text" id="address" name="address" autocomplete="street-address" required></label>
+                </div>
+
+                <div class="section-heading payment-heading"><span>02</span><h2>Payment</h2></div>
+                <div class="form-grid">
+                    <label class="full-width" for="cardNumber">Card number<input type="text" id="cardNumber" name="cardNumber" inputmode="numeric" autocomplete="cc-number" maxlength="19" placeholder="1234 5678 9012 3456" required></label>
+                    <label for="expiry">Expiry date<input type="text" id="expiry" name="expiry" inputmode="numeric" autocomplete="cc-exp" maxlength="5" placeholder="MM / YY" required></label>
+                    <label for="cvv">Security code<input type="text" id="cvv" name="cvv" inputmode="numeric" autocomplete="cc-csc" maxlength="4" placeholder="CVV" required></label>
+                </div>
+                <p class="secure-note">🔒 Your payment details are encrypted and secure.</p>
+                <button id="submitPayment" class="submit-payment-button" type="submit">Complete order <span>→</span></button>
+                <p id="formMessage" class="form-message" role="alert"></p>
+            </section>
+
+            <aside class="checkout-card order-summary">
+                <div class="section-heading"><span>03</span><h2>Order summary</h2></div>
+                <div id="checkoutItemsContainer" class="checkout-items-container"></div>
+                <div class="summary-row"><span>Subtotal</span><span class="subtotal-amount">$0.00</span></div>
+                <div class="summary-row muted"><span>Shipping</span><span>Calculated at checkout</span></div>
+                <div class="summary-total"><span>Total</span><span class="total-amount">$0.00</span></div>
+            </aside>
+        </form>
+        <div id="successMessage" class="success-message" hidden>
+            <h2>Order received.</h2><p>Thank you for shopping UTOPIA. Your confirmation is ready.</p><a class="continue-button" href="index.html">Return to store</a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const checkoutItemsContainer = document.getElementById('checkoutItemsContainer');
+            const subtotalAmount = document.querySelector('.subtotal-amount');
+            const totalAmount = document.querySelector('.total-amount');
+            const checkoutForm = document.getElementById('checkoutForm');
+            const emptyCheckout = document.getElementById('emptyCheckout');
+            let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+
+            function updateCheckoutItems() {
+                checkoutItemsContainer.innerHTML = '';
+                let subtotal = 0;
+                emptyCheckout.hidden = cartItems.length !== 0;
+                checkoutForm.hidden = cartItems.length === 0;
+                cartItems.forEach(item => {
+                    const checkoutItem = document.createElement('div');
+                    checkoutItem.classList.add('checkout-item');
+                    checkoutItem.innerHTML = `
+                        <span class="checkout-item-name">${item.title}<small>Qty ${item.quantity}</small></span>
+                        <span class="checkout-item-price">$${(item.price * item.quantity).toFixed(2)}</span>
+                    `;
+                    checkoutItemsContainer.appendChild(checkoutItem);
+
+                    subtotal += item.price * item.quantity;
+                });
+
+                subtotalAmount.textContent = `$${subtotal.toFixed(2)}`;
+                totalAmount.textContent = `$${subtotal.toFixed(2)}`;
+            }
+
+            document.getElementById('cardNumber').addEventListener('input', function() {
+                this.value = this.value.replace(/\D/g, '').slice(0, 16).replace(/(.{4})/g, '$1 ').trim();
+            });
+            document.getElementById('expiry').addEventListener('input', function() {
+                this.value = this.value.replace(/\D/g, '').slice(0, 4).replace(/^(\d{2})(\d)/, '$1 / $2');
+            });
+            document.getElementById('cvv').addEventListener('input', function() { this.value = this.value.replace(/\D/g, '').slice(0, 4); });
+
+            checkoutForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const formMessage = document.getElementById('formMessage');
+                if (!checkoutForm.checkValidity()) {
+                    formMessage.textContent = 'Please complete all required fields.';
+                    checkoutForm.reportValidity();
+                    return;
+                }
+                formMessage.textContent = '';
+                localStorage.removeItem('cartItems');
+                cartItems = [];
+                checkoutForm.hidden = true;
+                document.querySelector('.checkout-heading').hidden = true;
+                document.getElementById('successMessage').hidden = false;
+            });
+
+            updateCheckoutItems(); // Initial update
+        });
+    </script>
+</body>
+</html>
